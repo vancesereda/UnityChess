@@ -53,7 +53,7 @@ public class Pawn : BasePiece
         }
     }
 
-    protected override void CheckPathing()
+    public override void CheckPathing()
     {
         // Target position
         int currentX = mCurrentCell.mBoardPosition.x;

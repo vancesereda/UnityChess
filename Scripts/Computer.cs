@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Computer : MonoBehaviour 
+public class Computer : MonoBehaviour
 {
 
 
@@ -11,18 +11,12 @@ public class Computer : MonoBehaviour
     {
         mPieceManager = newPieceManager;
     }
-
-
-    public void Update() 
-    {
-
-    }
-
+    
     public void StartComputerTurn() 
     {
         foreach(BasePiece piece in mPieceManager.mBlackPieces)
         {
-            Debug.Log("success");
+            piece.CheckPathing();
         }
         Debug.Log("Computer Turn Started.");
     }

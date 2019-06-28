@@ -99,8 +99,8 @@ public abstract class BasePiece : EventTrigger
             mHighlightedCells.Add(mCurrentCell.mBoard.mAllCells[currentX, currentY]);
         }
     }
-
-    protected virtual void CheckPathing()
+    
+    public virtual void CheckPathing()
     {
         // Horizontal
         CreateCellPath(1, 0, mMovement.x);

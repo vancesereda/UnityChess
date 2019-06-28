@@ -33,7 +33,7 @@ public class Knight : BasePiece
     }
 
     // New
-    protected override void CheckPathing()
+    public override void CheckPathing()
     {
         // Draw top half
         CreateCellPath(1);
