@@ -99,7 +99,7 @@ public abstract class BasePiece : EventTrigger
             mHighlightedCells.Add(mCurrentCell.mBoard.mAllCells[currentX, currentY]);
         }
     }
-    
+
     public virtual void CheckPathing()
     {
         // Horizontal
@@ -119,13 +119,13 @@ public abstract class BasePiece : EventTrigger
         CreateCellPath(1, -1, mMovement.z);
     }
 
-    protected void ShowCells()
+    public void ShowCells()
     {
         foreach (Cell cell in mHighlightedCells)
             cell.mOutlineImage.enabled = true;
     }
 
-    protected void ClearCells()
+    public void ClearCells()
     {
         foreach (Cell cell in mHighlightedCells)
             cell.mOutlineImage.enabled = false;
@@ -133,7 +133,7 @@ public abstract class BasePiece : EventTrigger
         mHighlightedCells.Clear();
     }
 
-    protected virtual void Move()
+    public virtual void Move()
     {
         // If there is an enemy piece, remove it
         mTargetCell.RemovePiece();

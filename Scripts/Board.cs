@@ -75,7 +75,7 @@ public class Board : MonoBehaviour
         if (targetCell.mCurrentPiece != null)
         {
             //If King (easiest way to keep track of check state)
-            if (targetCell.mCurrentPiece.GetType() == typeof(King))
+            if (targetCell.mCurrentPiece.GetType() == typeof(King) && checkingPiece.mColor != targetCell.mCurrentPiece.mColor)
                 return CellState.King;
             // If friendly
             if (checkingPiece.mColor == targetCell.mCurrentPiece.mColor)
