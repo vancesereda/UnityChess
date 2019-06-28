@@ -60,11 +60,14 @@ public abstract class BasePiece : EventTrigger
     }
 
     #region Movement
-    protected void CreateCellPath(int xDirection, int yDirection, int movement)
+    protected void CreateCellPath(int xDirection, int yDirection, int movement, bool ComputerEvaluation = false)
     {
         // Target position
+        eval = ComputerEvaluation = true ? true : false;
+        
         int currentX = mCurrentCell.mBoardPosition.x;
         int currentY = mCurrentCell.mBoardPosition.y;
+        
 
         // Check each cell
         for (int i = 1; i <= movement; i++)
@@ -74,7 +77,7 @@ public abstract class BasePiece : EventTrigger
 
             // Get the state of the target cell
             CellState cellState = CellState.None;
-            cellState = mCurrentCell.mBoard.ValidateCell(currentX, currentY, this);
+            cellState = mCurrentCell.mBoard.ValidateCell(currentX, currentY, this, eval);
 
             //If King, add 
             if (cellState == CellState.King)
@@ -100,23 +103,24 @@ public abstract class BasePiece : EventTrigger
         }
     }
 
-    public virtual void CheckPathing()
+    public virtual void CheckPathing(bool ComputerEvaluation = false)
     {
+        eval = ComputerEvaluation == true ? true : false;
         // Horizontal
-        CreateCellPath(1, 0, mMovement.x);
-        CreateCellPath(-1, 0, mMovement.x);
+        CreateCellPath(1, 0, mMovement.x, eval);
+        CreateCellPath(-1, 0, mMovement.x, eval);
 
         // Vertical 
-        CreateCellPath(0, 1, mMovement.y);
-        CreateCellPath(0, -1, mMovement.y);
+        CreateCellPath(0, 1, mMovement.y, eval);
+        CreateCellPath(0, -1, mMovement.y, eval);
 
         // Upper diagonal
-        CreateCellPath(1, 1, mMovement.z);
-        CreateCellPath(-1, 1, mMovement.z);
+        CreateCellPath(1, 1, mMovement.z, eval);
+        CreateCellPath(-1, 1, mMovement.z, eval);
 
         // Lower diagonal
-        CreateCellPath(-1, -1, mMovement.z);
-        CreateCellPath(1, -1, mMovement.z);
+        CreateCellPath(-1, -1, mMovement.z, eval);
+        CreateCellPath(1, -1, mMovement.z, eval);
     }
 
     public void ShowCells()

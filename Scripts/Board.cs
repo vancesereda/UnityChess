@@ -58,8 +58,7 @@ public class Board : MonoBehaviour
         #endregion
     }
 
-    // New
-    public CellState ValidateCell(int targetX, int targetY, BasePiece checkingPiece)
+    public virtual CellState ValidateCell(int targetX, int targetY, BasePiece checkingPiece, bool ComputerEvaluation = false)
     {
         // Bounds check
         if (targetX < 0 || targetX > 7)
@@ -69,8 +68,14 @@ public class Board : MonoBehaviour
             return CellState.OutOfBounds;
 
         // Get cell
-        Cell targetCell = mAllCells[targetX, targetY];
-
+        if (ComputerEvaluation == false) 
+        {
+            Cell targetCell = mAllCells[targetX, targetY];
+        } else 
+        {
+            Cell targetCell = Computer.mAllCells[targetX, targetY];
+        }
+        
         // If the cell has a piece
         if (targetCell.mCurrentPiece != null)
         {

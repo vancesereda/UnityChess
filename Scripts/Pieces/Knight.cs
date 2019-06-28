@@ -13,40 +13,41 @@ public class Knight : BasePiece
     }
 
     // New
-    private void CreateCellPath(int flipper)
+    private void CreateCellPath(int flipper, bool ComputerEvaluation = false)
     {
         // Target position
         int currentX = mCurrentCell.mBoardPosition.x;
         int currentY = mCurrentCell.mBoardPosition.y;
 
         // Left
-        MatchesState(currentX - 2, currentY + (1 * flipper));
+        MatchesState(currentX - 2, currentY + (1 * flipper), ComputerEvaluation);
 
         // Upper left
-        MatchesState(currentX - 1, currentY + (2 * flipper));
+        MatchesState(currentX - 1, currentY + (2 * flipper),ComputerEvaluation);
 
         // Upper right
-        MatchesState(currentX + 1, currentY + (2 * flipper));
+        MatchesState(currentX + 1, currentY + (2 * flipper),ComputerEvaluation);
 
         // Right
-        MatchesState(currentX + 2, currentY + (1 * flipper));
+        MatchesState(currentX + 2, currentY + (1 * flipper),ComputerEvaluation);
     }
 
     // New
-    public override void CheckPathing()
+    public override void CheckPathing(bool ComputerEvaluation = false)
     {
+        eval = ComputerEvaluation == true ? true: false;
         // Draw top half
-        CreateCellPath(1);
+        CreateCellPath(1, eval);
 
         // Draw bottom half
         // CreateCellPath(-1);
     }
 
     // New
-    private void MatchesState(int targetX, int targetY)
+    private void MatchesState(int targetX, int targetY, bool ComputerEvaluation = false)
     {
         CellState cellState = CellState.None;
-        cellState = mCurrentCell.mBoard.ValidateCell(targetX, targetY, this);
+        cellState = mCurrentCell.mBoard.ValidateCell(targetX, targetY, this, ComputerEvaluation);
 
         if (cellState != CellState.Friendly && cellState != CellState.OutOfBounds)
             mHighlightedCells.Add(mCurrentCell.mBoard.mAllCells[targetX, targetY]);
