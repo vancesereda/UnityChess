@@ -15,6 +15,7 @@ public class PieceManager : MonoBehaviour
 
     public GameObject mPiecePrefab;
     public ResetButton ResetButton;
+    public Computer Computer;
 
     public List<BasePiece> mWhitePieces = null;
     public List<BasePiece> mBlackPieces = null;
@@ -37,6 +38,8 @@ public class PieceManager : MonoBehaviour
     };
     public void Setup(Board board)
     {
+        // Computer.Setup(this);
+        ResetButton.Setup(this);
         // Create white pieces
         mWhitePieces = CreatePieces(Color.white, new Color32(80, 124, 159, 255), board);
 
@@ -50,13 +53,15 @@ public class PieceManager : MonoBehaviour
 
         // Added
         // White goes first
+        Computer.Setup(this);
         SwitchSides(Color.black);
+
     }
 
     private List<BasePiece> CreatePieces(Color teamColor, Color32 spriteColor, Board board)
     {
         List<BasePiece> newPieces = new List<BasePiece>();
-        ResetButton.Setup(this);
+        
 
         for (int i = 0; i < mPieceOrder.Length; i++)
         {
@@ -97,13 +102,13 @@ public class PieceManager : MonoBehaviour
             // Place pawns    
             pieces[i].Place(board.mAllCells[i, pawnRow]);
             //Add location of pawns
-            pieces[i].location.Set(i, pawnRow-1);
+            pieces[i].location.Set(i, pawnRow);
             // Debug.Log(pieces[i].location.ToString());
 
             // Place royalty
             pieces[i + 8].Place(board.mAllCells[i, royaltyRow]);
             //Add location of royalty
-            pieces[i].location.Set(i, royaltyRow-1);
+            pieces[i+8].location.Set(i, royaltyRow);
             // Debug.Log(pieces[i].location.ToString());
         }
     }
@@ -114,7 +119,7 @@ public class PieceManager : MonoBehaviour
             piece.enabled = value;
     }
 
-    public bool SwitchSides(Color color)
+    public void SwitchSides(Color color)
     {
         if (!mIsKingAlive)
         {
@@ -142,7 +147,7 @@ public class PieceManager : MonoBehaviour
 
             piece.enabled = isPartOfTeam;
         }
-        return isBlackTurn;
+        if (isBlackTurn) Computer.StartComputerTurn();
     }
 
     public void ResetPieces()

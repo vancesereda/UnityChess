@@ -81,6 +81,7 @@ public abstract class BasePiece : EventTrigger
             {
                 mKingCells.Add(mCurrentCell.mBoard.mAllCells[currentX,currentY]);
                 mHighlightedCells.Add(mCurrentCell.mBoard.mAllCells[currentX, currentY]);
+
                 break;
             }
             // If enemy, add to list, break
@@ -144,13 +145,12 @@ public abstract class BasePiece : EventTrigger
         mCurrentCell = mTargetCell;
         mCurrentCell.mCurrentPiece = this;
         location.Set(mCurrentCell.mBoardPosition.x, mCurrentCell.mBoardPosition.y);
-        Debug.Log(location.ToString());
 
 
         // Move on board
         transform.position = mCurrentCell.transform.position;
         
-        Debug.Log(mCurrentCell.mBoardPosition);
+        // Debug.Log(mCurrentCell.mBoardPosition);
         mTargetCell = null;
     }
     #endregion
@@ -210,19 +210,33 @@ public abstract class BasePiece : EventTrigger
         // mPieceManager.TestCheck(mKingCells);
 
         // End turn
-        bool isBlackTurn = mPieceManager.SwitchSides(mColor);
-        if (isBlackTurn) StartComputerTurn();
+        mPieceManager.SwitchSides(mColor);
+        // if (isBlackTurn) AI.StartComputerTurn();
     }
 
-    private void StartComputerTurn() 
-    {
-        // get all pieces (get the location of all pieces)
-        // foreach (BasePiece piece in mPieceManager.mBlackPieces)
-        // {
-        //     Debug.Log('sdf');
-        // };
-        // BasePiece.GetType().GetProperties();
-    }
+    // protected void StartComputerTurn() 
+    // {
+    //     // get all pieces (get the location of all pieces)
+    //     foreach (BasePiece piece in mPieceManager.mBlackPieces)
+    //     {
+    //         // Debug.Log(piece.location.ToString());
+    //         piece.CheckPathing();
+    //         // Debug.Log(piece.mHighlightedCells[0].mBoardPosition.ToString());
+    //         // piece.ShowCells();
+    //         // Debug.Log(mHighlightedCells[0].mBoardPosition.x);
+            
+            
+    //     };
+    //     Debug.Log(mPieceManager.mBlackPieces[0].mHighlightedCells[0].mBoardPosition.ToString());
+
+        
+    //     // foreach (Cell cell in mHighlightedCells)
+    //     // {
+    //     //     Debug.Log(cell.mBoardPosition.ToString());
+    //     // }
+        
+        
+    // }
 
     // private void GetCurrentTeamMoves() 
     // {
